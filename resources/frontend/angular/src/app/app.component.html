@@ -1,0 +1,71 @@
+<div class="container mt-5">
+  <div class="row mt-5 mb-5">
+      <div class="col-sm-10 m-auto">
+
+          <h2 class="text-center mb-5 pb-4">{{title}}</h2>
+
+          <div *ngIf="errors" class="alert alert-danger">
+              <ul>
+                  <li *ngFor="let key of objectKeys(errors)">
+                    {{ errors[key][0] }}
+                  </li>
+              </ul>
+          </div>
+
+           <p class="h8">Insert a URL and a depth to the crawler & get the inner URLs list</p>
+
+          <form method="post" [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="row g-3 align-items-center">
+
+                  <div class="col-8">
+                      <input formControlName="url" type="text" placeholder="http://www.example.com" id="inputPassword6" class="form-control">
+                  </div>
+                  <div class="col-2">
+                      <input formControlName="depth" type="number"  placeholder="Depth" id="inputPassword6" class="form-control">
+                  </div>
+
+                  <div class="col-1">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+
+                  <div class="form-check">
+                      <input formControlName="update" class="form-check-input" type="checkbox" value="1" id="update">
+                      <label class="form-check-label" for="update">
+                        Reupdate the DB.
+                      </label>
+                  </div>
+
+                                      
+              </div>
+          </form>
+
+
+
+          <p class=" h4 mt-5 mb-4">Links List</p>
+
+          <p class="h5 mt-4 mb-3">{{message}}</p>
+
+          <div *ngIf="urls && urls.length > 0" >
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Links</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                        <tr *ngFor="let item of urls; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>
+                              {{item.url ? item.url : item}}
+                            </td>
+                        </tr>
+               
+                </tbody>
+            </table>
+          </div>
+
+      </div>
+  </div>
+</div>
